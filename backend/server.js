@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 const authRoutes = require("./routes/auth");
 const ownerRoutes = require("./routes/owner");
 const landHoldingRoutes = require("./routes/landholding");
-const path = require('path');
+const path = require("path");
 
 dotenv.config();
 
@@ -22,15 +22,15 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
+app.use(express.static(path.join(__dirname, "../public")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public", "index.html"));
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/owners", ownerRoutes);
 app.use("/api/landholdings", landHoldingRoutes);
-
-app.use(express.static(path.join(__dirname, '../frontend/build')));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
-});
 
 const PORT = process.env.PORT || 5000;
 
