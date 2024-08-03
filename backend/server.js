@@ -14,28 +14,27 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// connect to my MongoDB
+const mongoUri = process.env.MONGO_URI;
+if (!mongoUri) {
+  console.error(
+    "MongoDB URI is not defined. Set the MONGO_URI environment variable."
+  );
+  process.exit(1);
+}
 mongoose
-  .connect(process.env.MONGO_URI, {
+  .connect(mongoUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log(err));
+  .catch((err) => console.error("MongoDB connection error:", err));
 
 app.use(express.static(path.join(__dirname, "../build")));
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../build", "index.html"));
 });
-
-// connect to my MongoDB
-const mongoUri = process.env.MONGODB_URI;
-mongoose.connect(mongoUri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.error('MongoDB connection error:', err));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/owners", ownerRoutes);
