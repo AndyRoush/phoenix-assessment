@@ -28,6 +28,15 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../build", "index.html"));
 });
 
+// connect to my MongoDB
+const mongoUri = process.env.MONGODB_URI;
+mongoose.connect(mongoUri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log('MongoDB connected'))
+.catch(err => console.error('MongoDB connection error:', err));
+
 app.use("/api/auth", authRoutes);
 app.use("/api/owners", ownerRoutes);
 app.use("/api/landholdings", landHoldingRoutes);
