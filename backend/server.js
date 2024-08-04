@@ -30,11 +30,11 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-// app.use(express.static(path.join(__dirname, "../build")));
+app.use(express.static(path.join(__dirname, "../build")));
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../build", "index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../build", "index.html"));
+});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/owners", ownerRoutes);
