@@ -12,6 +12,7 @@ const Login = () => {
   });
 
   const handleSubmit = (values) => {
+    console.log(values)
     axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, values)
       .then(response => {
         localStorage.setItem('token', response.data.token);
