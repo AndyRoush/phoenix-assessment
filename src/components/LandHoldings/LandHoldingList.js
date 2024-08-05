@@ -36,7 +36,8 @@ const LandHoldingList = ({ landHoldings, onEdit, onDelete }) => {
               </div>
             </div>
           </li>
-        ))}
+        ))
+        }
       </ul>
     </div>
   );
