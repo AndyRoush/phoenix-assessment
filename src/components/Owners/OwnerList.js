@@ -14,7 +14,7 @@ const OwnerList = ({ owners, onEdit, onDelete }) => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto mt-10">
+    <div className="max-w-3xl mx-auto mt-10 w-full">
       <h1 className="text-2xl mb-4">Owners</h1>
       <ul>
         {owners.map(owner => (
